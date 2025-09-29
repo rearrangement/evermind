@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EverMind - Student Assignment Reminder</title>
+    <meta name="description" content="Never miss another assignment or homework deadline. Easy-to-use student reminder app with daily calendar view.">
+    <meta name="theme-color" content="#667eea">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNCIgZmlsbD0idXJsKCNncmFkaWVudDAoXzQ1XzEzNSkiLz4KPHA+PHRleHQgeD0iMTYiIHk9IjI0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPvCfk408L3RleHQ+PC9wPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfNDVfMTM1IiB4MT0iMCIgeTE9IjAiIHgyPSIzMiIgeTI9IjMyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiM2NjdFRUEiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjNzY0QkEyIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+Cg==">
+    <!-- Apple-specific meta tags for better iOS support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="EverMind">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwXzQ1XzEzNSkiLz4KPHA+PHRleHQgeD0iOTAiIHk9IjExNSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNjAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5ONPC90ZXh0PjwvcD4KPHN2ZyB4PSI0NSIgeT0iNTAiIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMiAxNWwtNS01IDEuNDEtMS40MUw5IDE0LjE3bDcuNTktNy41OUwxOCA4bC05IDl6Ii8+Cjwvc3ZnPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfNDVfMTM1IiB4MT0iMCIgeTE9IjAiIHgyPSIxODAiIHkyPSIxODAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N0VFQSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRCQTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 EverMind</h1>
+            <p>Never miss another assignment or homework deadline</p>
+        </header>
+
+        <main>
+            <!-- Today's Overview -->
+            <section class="today-overview">
+                <h2>Today - <span id="current-date"></span></h2>
+                <div id="today-assignments" class="assignment-list">
+                    <!-- Today's assignments will be displayed here -->
+                </div>
+            </section>
+
+            <!-- Add New Assignment -->
+            <section class="add-assignment">
+                <h3>Add New Assignment</h3>
+                <form id="assignment-form">
+                    <div class="form-group">
+                        <label for="assignment-title">Assignment Title:</label>
+                        <input type="text" id="assignment-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignment-course">Course/Subject:</label>
+                        <input type="text" id="assignment-course" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignment-description">Description:</label>
+                        <textarea id="assignment-description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignment-due-date">Due Date:</label>
+                        <input type="date" id="assignment-due-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="assignment-due-time">Due Time:</label>
+                        <input type="time" id="assignment-due-time" value="23:59">
+                    </div>
+                    <div class="form-group">
+                        <label for="assignment-priority">Priority:</label>
+                        <select id="assignment-priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <button type="submit">Add Assignment</button>
+                </form>
+            </section>
+
+            <!-- Calendar View -->
+            <section class="calendar-section">
+                <h3>Weekly Calendar View</h3>
+                <div class="calendar-nav">
+                    <button id="prev-week">‹ Previous Week</button>
+                    <span id="week-range"></span>
+                    <button id="next-week">Next Week ›</button>
+                </div>
+                <div id="calendar-grid" class="calendar-grid">
+                    <!-- Calendar will be generated here -->
+                </div>
+            </section>
+
+            <!-- All Assignments -->
+            <section class="all-assignments">
+                <h3>All Assignments</h3>
+                <div class="assignment-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                    <button class="filter-btn" data-filter="overdue">Overdue</button>
+                </div>
+                <div id="all-assignments-list" class="assignment-list">
+                    <!-- All assignments will be displayed here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Permission Request -->
+    <div id="notification-prompt" class="notification-prompt" style="display: none;">
+        <div class="prompt-content">
+            <h3>Enable Notifications?</h3>
+            <p>Allow EverMind to send you reminder notifications for upcoming assignments.</p>
+            <div class="prompt-buttons">
+                <button id="enable-notifications">Enable</button>
+                <button id="disable-notifications">Not Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
