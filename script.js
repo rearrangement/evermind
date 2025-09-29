@@ -4,6 +4,7 @@ class EverMind {
     constructor() {
         this.assignments = JSON.parse(localStorage.getItem('evermind-assignments')) || [];
         this.notificationsEnabled = JSON.parse(localStorage.getItem('evermind-notifications')) || false;
+        this.currentWeekStart = this.getWeekStart(new Date());
         
         this.init();
     }
@@ -13,6 +14,7 @@ class EverMind {
         this.displayCurrentDate();
         this.displayTodayAssignments();
         this.displayAllAssignments();
+        this.displayWeekView();
         this.checkNotificationPermission();
         this.scheduleNotifications();
     }
@@ -56,6 +58,22 @@ class EverMind {
         if (disableNotifications) {
             disableNotifications.addEventListener('click', () => {
                 this.hideNotificationPrompt();
+            });
+        }
+
+        // Week navigation
+        const prevWeekBtn = document.getElementById('prev-week');
+        const nextWeekBtn = document.getElementById('next-week');
+        
+        if (prevWeekBtn) {
+            prevWeekBtn.addEventListener('click', () => {
+                this.navigateWeek(-1);
+            });
+        }
+        
+        if (nextWeekBtn) {
+            nextWeekBtn.addEventListener('click', () => {
+                this.navigateWeek(1);
             });
         }
     }
@@ -111,6 +129,7 @@ class EverMind {
         // Refresh displays
         this.displayTodayAssignments();
         this.displayAllAssignments();
+        this.displayWeekView();
     }
 
     showAddAssignmentModal() {
@@ -147,6 +166,7 @@ class EverMind {
             this.saveAssignments();
             this.displayTodayAssignments();
             this.displayAllAssignments();
+            this.displayWeekView();
         }
     }
 
@@ -156,6 +176,7 @@ class EverMind {
             this.saveAssignments();
             this.displayTodayAssignments();
             this.displayAllAssignments();
+            this.displayWeekView();
         }
     }
 
@@ -374,6 +395,103 @@ class EverMind {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    // Week View Methods
+    getWeekStart(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is Sunday
+        return new Date(d.setDate(diff));
+    }
+
+    navigateWeek(direction) {
+        const newWeekStart = new Date(this.currentWeekStart);
+        newWeekStart.setDate(newWeekStart.getDate() + (direction * 7));
+        this.currentWeekStart = newWeekStart;
+        this.displayWeekView();
+    }
+
+    displayWeekView() {
+        const weekCalendar = document.getElementById('week-calendar');
+        const currentWeekRange = document.getElementById('current-week-range');
+        
+        if (!weekCalendar || !currentWeekRange) return;
+
+        // Update week range display
+        const weekEnd = new Date(this.currentWeekStart);
+        weekEnd.setDate(weekEnd.getDate() + 6);
+        
+        const startMonth = this.currentWeekStart.toLocaleDateString('en-US', { month: 'short' });
+        const startDay = this.currentWeekStart.getDate();
+        const endMonth = weekEnd.toLocaleDateString('en-US', { month: 'short' });
+        const endDay = weekEnd.getDate();
+        
+        if (startMonth === endMonth) {
+            currentWeekRange.textContent = `${startMonth} ${startDay} - ${endDay}, ${this.currentWeekStart.getFullYear()}`;
+        } else {
+            currentWeekRange.textContent = `${startMonth} ${startDay} - ${endMonth} ${endDay}, ${this.currentWeekStart.getFullYear()}`;
+        }
+
+        // Generate week days
+        weekCalendar.innerHTML = '';
+        const today = new Date();
+        const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        
+        for (let i = 0; i < 7; i++) {
+            const dayDate = new Date(this.currentWeekStart);
+            dayDate.setDate(dayDate.getDate() + i);
+            
+            const dayElement = document.createElement('div');
+            dayElement.className = 'week-day';
+            
+            // Check if this day is today
+            if (dayDate.toDateString() === today.toDateString()) {
+                dayElement.classList.add('today');
+            }
+            
+            // Day header
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'week-day-header';
+            dayHeader.textContent = dayNames[i];
+            
+            // Day date
+            const dayDateElement = document.createElement('div');
+            dayDateElement.className = 'week-day-date';
+            dayDateElement.textContent = dayDate.getDate();
+            
+            // Assignments for this day
+            const assignmentsContainer = document.createElement('div');
+            assignmentsContainer.className = 'week-assignments';
+            
+            const dayDateString = dayDate.toISOString().split('T')[0];
+            const dayAssignments = this.assignments.filter(a => a.dueDate === dayDateString);
+            
+            dayAssignments.forEach(assignment => {
+                const assignmentElement = document.createElement('div');
+                assignmentElement.className = `week-assignment ${assignment.priority}`;
+                if (assignment.completed) {
+                    assignmentElement.classList.add('completed');
+                }
+                
+                const titleElement = document.createElement('div');
+                titleElement.className = 'week-assignment-title';
+                titleElement.textContent = assignment.title;
+                
+                const courseElement = document.createElement('div');
+                courseElement.className = 'week-assignment-course';
+                courseElement.textContent = assignment.course;
+                
+                assignmentElement.appendChild(titleElement);
+                assignmentElement.appendChild(courseElement);
+                assignmentsContainer.appendChild(assignmentElement);
+            });
+            
+            dayElement.appendChild(dayHeader);
+            dayElement.appendChild(dayDateElement);
+            dayElement.appendChild(assignmentsContainer);
+            weekCalendar.appendChild(dayElement);
+        }
     }
 }
 

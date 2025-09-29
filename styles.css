@@ -490,3 +490,182 @@ button:active {
         justify-content: center;
     }
 }
+
+/* Weekly Calendar View */
+.week-view {
+    margin-top: 25px;
+    border-left: 3px solid #667eea;
+}
+
+.week-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.week-header h3 {
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 1.3rem;
+}
+
+.week-navigation {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.week-nav-btn {
+    background: #2d2d2d;
+    border: 1px solid #404040;
+    color: #a0a0a0;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.week-nav-btn:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+}
+
+#current-week-range {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    min-width: 200px;
+    text-align: center;
+}
+
+.week-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: #404040;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.week-day {
+    background: #2d2d2d;
+    padding: 12px 8px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.week-day.today {
+    background: #1a3d1a;
+    border: 1px solid #27ae60;
+}
+
+.week-day-header {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #a0a0a0;
+    margin-bottom: 8px;
+    text-align: center;
+    border-bottom: 1px solid #404040;
+    padding-bottom: 4px;
+}
+
+.week-day.today .week-day-header {
+    color: #27ae60;
+}
+
+.week-day-date {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.week-day.today .week-day-date {
+    color: #2ecc71;
+}
+
+.week-assignments {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.week-assignment {
+    background: #1a1a1a;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font-size: 0.7rem;
+    border-left: 2px solid #667eea;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.week-assignment:hover {
+    background: #333;
+    transform: translateY(-1px);
+}
+
+.week-assignment.high {
+    border-left-color: #e74c3c;
+}
+
+.week-assignment.medium {
+    border-left-color: #f39c12;
+}
+
+.week-assignment.low {
+    border-left-color: #95a5a6;
+}
+
+.week-assignment.completed {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+.week-assignment-title {
+    font-weight: 600;
+    color: #e0e0e0;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.week-assignment-course {
+    color: #a0a0a0;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+    .week-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .week-calendar {
+        grid-template-columns: 1fr;
+    }
+    
+    .week-day {
+        min-height: 80px;
+    }
+    
+    #current-week-range {
+        min-width: auto;
+    }
+}
