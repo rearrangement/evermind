@@ -1,4 +1,4 @@
-/* EverMind - Student Assignment Reminder App Styles */
+/* EverMind - Student Assignment Reminder App Styles - Dark Mode */
 
 * {
     margin: 0;
@@ -8,88 +8,142 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-    line-height: 1.6;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    line-height: 1.4;
+    font-size: 14px;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px;
 }
 
-/* Header */
-header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+/* Top Navigation Bar */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #2d2d2d;
+    border-bottom: 1px solid #404040;
+    padding: 10px 20px;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.top-bar-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-info h1 {
+    font-size: 1.4rem;
+    color: #667eea;
+    margin: 0;
+}
+
+.project-info p {
+    font-size: 0.85rem;
+    color: #a0a0a0;
+    margin: 0;
+}
+
+.add-dropdown {
+    position: relative;
+}
+
+.add-btn {
+    background: #667eea;
     color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+.add-btn:hover {
+    background: #5a67d8;
 }
 
-header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
+/* Main content with top margin for fixed header */
+main {
+    margin-top: 80px;
 }
 
 /* Sections */
 section {
-    background: white;
-    margin-bottom: 20px;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    background: #2d2d2d;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #404040;
 }
 
 section h2, section h3 {
-    margin-bottom: 20px;
-    color: #2c3e50;
+    margin-bottom: 12px;
+    color: #e0e0e0;
+    font-size: 1.1rem;
 }
 
 section h2 {
-    font-size: 1.8rem;
-    border-bottom: 2px solid #667eea;
-    padding-bottom: 10px;
-}
-
-section h3 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #404040;
+    padding-bottom: 8px;
 }
 
 /* Today's Overview */
 .today-overview {
-    border-left: 4px solid #27ae60;
+    border-left: 3px solid #27ae60;
+}
+
+/* Simplified Assignment Form - Hidden by default */
+.add-assignment {
+    display: none;
+}
+
+.add-assignment.active {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 /* Form Styling */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     font-weight: 600;
-    color: #555;
+    color: #a0a0a0;
+    font-size: 0.85rem;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #e1e8ed;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+    padding: 8px 12px;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    transition: border-color 0.2s ease;
 }
 
 .form-group input:focus,
@@ -97,149 +151,101 @@ section h3 {
 .form-group select:focus {
     outline: none;
     border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
 }
 
-button[type="submit"] {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.form-group textarea {
+    resize: vertical;
+    min-height: 60px;
 }
 
-button[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-/* Calendar Styling */
-.calendar-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.calendar-nav button {
+button {
     background: #667eea;
     color: white;
     border: none;
-    padding: 10px 16px;
+    padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
 }
 
-.calendar-nav button:hover {
+button:hover {
     background: #5a67d8;
 }
 
-#week-range {
-    font-weight: 600;
-    font-size: 1.1rem;
+button:active {
+    transform: translateY(1px);
+}
 }
 
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
+/* Modal backdrop */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    display: none;
 }
 
-.calendar-day {
-    border: 1px solid #e1e8ed;
-    border-radius: 8px;
-    padding: 10px;
-    min-height: 120px;
-    background: #fafbfc;
-}
-
-.calendar-day.today {
-    background: #e6f3ff;
-    border-color: #667eea;
-}
-
-.calendar-day-header {
-    font-weight: 600;
-    margin-bottom: 8px;
-    text-align: center;
-    color: #555;
-}
-
-.calendar-assignment {
-    background: #667eea;
-    color: white;
-    padding: 4px 8px;
-    margin: 2px 0;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    cursor: pointer;
-}
-
-.calendar-assignment.priority-high {
-    background: #e74c3c;
-}
-
-.calendar-assignment.priority-medium {
-    background: #f39c12;
-}
-
-.calendar-assignment.priority-low {
-    background: #95a5a6;
+.modal-backdrop.active {
+    display: block;
 }
 
 /* Assignment List */
 .assignment-item {
-    background: #f8f9fa;
-    border: 1px solid #e1e8ed;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 15px;
+    background: #1a1a1a;
+    border: 1px solid #404040;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 8px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .assignment-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .assignment-item.completed {
-    opacity: 0.7;
-    background: #d4edda;
-    border-color: #c3e6cb;
+    opacity: 0.6;
+    background: #1a2e1a;
+    border-color: #2d5a2d;
 }
 
 .assignment-item.overdue {
     border-color: #e74c3c;
-    background: #fdf2f2;
+    background: #2e1a1a;
 }
 
 .assignment-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .assignment-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    color: #e0e0e0;
 }
 
 .assignment-course {
     color: #667eea;
     font-weight: 500;
+    font-size: 0.85rem;
 }
 
 .assignment-priority {
-    padding: 4px 8px;
+    padding: 3px 6px;
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
 }
 
@@ -259,13 +265,16 @@ button[type="submit"]:hover {
 }
 
 .assignment-description {
-    margin: 10px 0;
-    color: #555;
+    margin: 6px 0;
+    color: #a0a0a0;
+    font-size: 0.85rem;
 }
 
 .assignment-due {
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: #c0c0c0;
 }
 
 .due-today {
@@ -278,15 +287,16 @@ button[type="submit"]:hover {
 
 .assignment-actions {
     display: flex;
-    gap: 10px;
+    gap: 6px;
 }
 
 .assignment-actions button {
-    padding: 8px 16px;
+    padding: 4px 8px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.75rem;
 }
 
 .complete-btn {
@@ -319,19 +329,20 @@ button[type="submit"]:hover {
 /* Assignment Filters */
 .assignment-filters {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 6px;
+    margin-bottom: 15px;
     flex-wrap: wrap;
 }
 
 .filter-btn {
-    padding: 8px 16px;
-    border: 2px solid #667eea;
-    background: white;
-    color: #667eea;
-    border-radius: 6px;
+    padding: 6px 12px;
+    border: 1px solid #404040;
+    background: #2d2d2d;
+    color: #a0a0a0;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.8rem;
     transition: all 0.3s ease;
 }
 
@@ -339,6 +350,7 @@ button[type="submit"]:hover {
 .filter-btn:hover {
     background: #667eea;
     color: white;
+    border-color: #667eea;
 }
 
 /* Notification Prompt */
@@ -348,7 +360,7 @@ button[type="submit"]:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -356,27 +368,40 @@ button[type="submit"]:hover {
 }
 
 .prompt-content {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
+    background: #2d2d2d;
+    padding: 20px;
+    border-radius: 8px;
     text-align: center;
-    max-width: 400px;
+    max-width: 350px;
     margin: 20px;
+    border: 1px solid #404040;
+}
+
+.prompt-content h3 {
+    color: #e0e0e0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.prompt-content p {
+    color: #a0a0a0;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
 }
 
 .prompt-buttons {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     justify-content: center;
-    margin-top: 20px;
 }
 
 .prompt-buttons button {
-    padding: 12px 24px;
+    padding: 8px 16px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.9rem;
 }
 
 #enable-notifications {
@@ -385,8 +410,47 @@ button[type="submit"]:hover {
 }
 
 #disable-notifications {
-    background: #95a5a6;
+    background: #666;
     color: white;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
+
+.empty-state h4 {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #a0a0a0;
+}
+
+.empty-state p {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Success/Error Messages */
+.message {
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.message.success {
+    background: #1a2e1a;
+    color: #27ae60;
+    border: 1px solid #2d5a2d;
+}
+
+.message.error {
+    background: #2e1a1a;
+    color: #e74c3c;
+    border: 1px solid #5a2d2d;
 }
 
 /* Responsive Design */
@@ -395,17 +459,14 @@ button[type="submit"]:hover {
         padding: 10px;
     }
     
-    header h1 {
-        font-size: 2rem;
+    .top-bar-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
     
-    .calendar-grid {
-        grid-template-columns: 1fr;
-        gap: 5px;
-    }
-    
-    .calendar-day {
-        min-height: 80px;
+    main {
+        margin-top: 100px;
     }
     
     .assignment-header {
@@ -417,44 +478,7 @@ button[type="submit"]:hover {
         flex-wrap: wrap;
     }
     
-    .calendar-nav {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
     .assignment-filters {
         justify-content: center;
     }
-}
-
-/* Empty State */
-.empty-state {
-    text-align: center;
-    padding: 40px;
-    color: #95a5a6;
-}
-
-.empty-state h4 {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-}
-
-/* Success/Error Messages */
-.message {
-    padding: 12px 16px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-.message.success {
-    background: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.message.error {
-    background: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
 }

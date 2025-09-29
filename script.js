@@ -14,27 +14,25 @@ class EverMind {
         this.displayCurrentDate();
         this.displayTodayAssignments();
         this.displayAllAssignments();
-        this.displayCalendar();
         this.checkNotificationPermission();
         this.scheduleNotifications();
     }
 
     setupEventListeners() {
+        // Add assignment button (show modal)
+        document.getElementById('add-assignment-btn').addEventListener('click', () => {
+            this.showAddAssignmentModal();
+        });
+
+        // Cancel assignment button (hide modal)
+        document.getElementById('cancel-assignment-btn').addEventListener('click', () => {
+            this.hideAddAssignmentModal();
+        });
+
         // Assignment form submission
         document.getElementById('assignment-form').addEventListener('submit', (e) => {
             e.preventDefault();
             this.addAssignment();
-        });
-
-        // Calendar navigation
-        document.getElementById('prev-week').addEventListener('click', () => {
-            this.currentWeekStart.setDate(this.currentWeekStart.getDate() - 7);
-            this.displayCalendar();
-        });
-
-        document.getElementById('next-week').addEventListener('click', () => {
-            this.currentWeekStart.setDate(this.currentWeekStart.getDate() + 7);
-            this.displayCalendar();
         });
 
         // Assignment filters
@@ -96,14 +94,40 @@ class EverMind {
         this.saveAssignments();
         this.showMessage('Assignment added successfully!', 'success');
         
-        // Reset form
+        // Reset form and hide modal
         document.getElementById('assignment-form').reset();
         document.getElementById('assignment-due-time').value = '23:59';
+        this.hideAddAssignmentModal();
         
         // Refresh displays
         this.displayTodayAssignments();
         this.displayAllAssignments();
-        this.displayCalendar();
+    }
+
+    showAddAssignmentModal() {
+        const modal = document.getElementById('add-assignment-modal');
+        modal.classList.add('active');
+        
+        // Create backdrop
+        const backdrop = document.createElement('div');
+        backdrop.className = 'modal-backdrop active';
+        backdrop.addEventListener('click', () => this.hideAddAssignmentModal());
+        document.body.appendChild(backdrop);
+    }
+
+    hideAddAssignmentModal() {
+        const modal = document.getElementById('add-assignment-modal');
+        modal.classList.remove('active');
+        
+        // Remove backdrop
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+        
+        // Reset form
+        document.getElementById('assignment-form').reset();
+        document.getElementById('assignment-due-time').value = '23:59';
         this.scheduleNotifications();
     }
 
