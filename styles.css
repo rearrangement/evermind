@@ -26,11 +26,12 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: #2d2d2d;
-    border-bottom: 1px solid #404040;
-    padding: 10px 20px;
+    background: #1f1f1f;
+    border-bottom: 2px solid #667eea;
+    padding: 15px 20px;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
 }
 
 .top-bar-content {
@@ -42,15 +43,18 @@ body {
 }
 
 .project-info h1 {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: #667eea;
     margin: 0;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
 }
 
 .project-info p {
-    font-size: 0.85rem;
-    color: #a0a0a0;
-    margin: 0;
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    margin: 2px 0 0 0;
+    font-weight: 500;
 }
 
 .add-dropdown {
@@ -58,23 +62,27 @@ body {
 }
 
 .add-btn {
-    background: #667eea;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 6px;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
 }
 
 .add-btn:hover {
-    background: #5a67d8;
+    background: linear-gradient(135deg, #5a67d8 0%, #6a4093 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-/* Main content with top margin for fixed header */
+/* Main content with increased top margin for enhanced header */
 main {
-    margin-top: 80px;
+    margin-top: 90px;
 }
 
 /* Sections */
