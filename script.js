@@ -3,7 +3,6 @@
 class EverMind {
     constructor() {
         this.assignments = JSON.parse(localStorage.getItem('evermind-assignments')) || [];
-        this.currentWeekStart = this.getWeekStart(new Date());
         this.notificationsEnabled = JSON.parse(localStorage.getItem('evermind-notifications')) || false;
         
         this.init();
@@ -44,25 +43,35 @@ class EverMind {
             });
         });
 
-        // Notification prompt
-        document.getElementById('enable-notifications').addEventListener('click', () => {
-            this.enableNotifications();
-        });
-
-        document.getElementById('disable-notifications').addEventListener('click', () => {
-            this.hideNotificationPrompt();
-        });
+        // Notification prompt (if exists)
+        const enableNotifications = document.getElementById('enable-notifications');
+        const disableNotifications = document.getElementById('disable-notifications');
+        
+        if (enableNotifications) {
+            enableNotifications.addEventListener('click', () => {
+                this.enableNotifications();
+            });
+        }
+        
+        if (disableNotifications) {
+            disableNotifications.addEventListener('click', () => {
+                this.hideNotificationPrompt();
+            });
+        }
     }
 
     displayCurrentDate() {
-        const today = new Date();
-        const options = { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-        };
-        document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', options);
+        const currentDateElement = document.getElementById('current-date');
+        if (currentDateElement) {
+            const today = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            currentDateElement.textContent = today.toLocaleDateString('en-US', options);
+        }
     }
 
     addAssignment() {
@@ -138,7 +147,6 @@ class EverMind {
             this.saveAssignments();
             this.displayTodayAssignments();
             this.displayAllAssignments();
-            this.displayCalendar();
         }
     }
 
@@ -148,7 +156,6 @@ class EverMind {
             this.saveAssignments();
             this.displayTodayAssignments();
             this.displayAllAssignments();
-            this.displayCalendar();
         }
     }
 
@@ -281,45 +288,6 @@ class EverMind {
         `;
     }
 
-    displayCalendar() {
-        const container = document.getElementById('calendar-grid');
-        const weekStart = new Date(this.currentWeekStart);
-        const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekEnd.getDate() + 6);
-
-        // Update week range display
-        document.getElementById('week-range').textContent = 
-            `${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${weekEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
-
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        let calendarHTML = '';
-
-        for (let i = 0; i < 7; i++) {
-            const day = new Date(weekStart);
-            day.setDate(day.getDate() + i);
-            const dateStr = day.toISOString().split('T')[0];
-            const isToday = dateStr === new Date().toISOString().split('T')[0];
-
-            const dayAssignments = this.assignments.filter(a => a.dueDate === dateStr);
-
-            calendarHTML += `
-                <div class="calendar-day ${isToday ? 'today' : ''}">
-                    <div class="calendar-day-header">
-                        ${days[i]} ${day.getDate()}
-                    </div>
-                    ${dayAssignments.map(assignment => `
-                        <div class="calendar-assignment priority-${assignment.priority}" 
-                             title="${this.escapeHtml(assignment.title)} - ${this.escapeHtml(assignment.course)}">
-                            ${this.escapeHtml(assignment.title.substring(0, 20))}${assignment.title.length > 20 ? '...' : ''}
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-        }
-
-        container.innerHTML = calendarHTML;
-    }
-
     filterAssignments(filter) {
         this.displayAllAssignments(filter);
     }
@@ -371,13 +339,6 @@ class EverMind {
                 }, timeUntilReminder);
             }
         });
-    }
-
-    getWeekStart(date) {
-        const d = new Date(date);
-        const day = d.getDay();
-        const diff = d.getDate() - day;
-        return new Date(d.setDate(diff));
     }
 
     getPriorityValue(priority) {
