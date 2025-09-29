@@ -16,67 +16,26 @@
     <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDE4MCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQwXzQ1XzEzNSkiLz4KPHA+PHRleHQgeD0iOTAiIHk9IjExNSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNjAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5ONPC90ZXh0PjwvcD4KPHN2ZyB4PSI0NSIgeT0iNTAiIHdpZHRoPSI5MCIgaGVpZ2h0PSI5MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyem0tMiAxNWwtNS01IDEuNDEtMS40MUw5IDE0LjE3bDcuNTktNy41OUwxOCA4bC05IDl6Ii8+Cjwvc3ZnPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudDBfNDVfMTM1IiB4MT0iMCIgeTE9IjAiIHgyPSIxODAiIHkyPSIxODAiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzY2N0VFQSIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiM3NjRCQTIiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>📝 EverMind</h1>
-            <p>Never miss another assignment or homework deadline</p>
-        </header>
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="project-info">
+                <h1>📝 EverMind</h1>
+                <p>Never miss another assignment or homework deadline</p>
+            </div>
+            <div class="add-dropdown">
+                <button class="add-btn" id="add-assignment-btn">+ Add Assignment</button>
+            </div>
+        </div>
+    </div>
 
+    <div class="container">
         <main>
             <!-- Today's Overview -->
             <section class="today-overview">
                 <h2>Today - <span id="current-date"></span></h2>
                 <div id="today-assignments" class="assignment-list">
                     <!-- Today's assignments will be displayed here -->
-                </div>
-            </section>
-
-            <!-- Add New Assignment -->
-            <section class="add-assignment">
-                <h3>Add New Assignment</h3>
-                <form id="assignment-form">
-                    <div class="form-group">
-                        <label for="assignment-title">Assignment Title:</label>
-                        <input type="text" id="assignment-title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="assignment-course">Course/Subject:</label>
-                        <input type="text" id="assignment-course" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="assignment-description">Description:</label>
-                        <textarea id="assignment-description" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="assignment-due-date">Due Date:</label>
-                        <input type="date" id="assignment-due-date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="assignment-due-time">Due Time:</label>
-                        <input type="time" id="assignment-due-time" value="23:59">
-                    </div>
-                    <div class="form-group">
-                        <label for="assignment-priority">Priority:</label>
-                        <select id="assignment-priority">
-                            <option value="low">Low</option>
-                            <option value="medium" selected>Medium</option>
-                            <option value="high">High</option>
-                        </select>
-                    </div>
-                    <button type="submit">Add Assignment</button>
-                </form>
-            </section>
-
-            <!-- Calendar View -->
-            <section class="calendar-section">
-                <h3>Weekly Calendar View</h3>
-                <div class="calendar-nav">
-                    <button id="prev-week">‹ Previous Week</button>
-                    <span id="week-range"></span>
-                    <button id="next-week">Next Week ›</button>
-                </div>
-                <div id="calendar-grid" class="calendar-grid">
-                    <!-- Calendar will be generated here -->
                 </div>
             </section>
 
@@ -95,6 +54,43 @@
             </section>
         </main>
     </div>
+
+    <!-- Modal for Adding Assignment -->
+    <section class="add-assignment" id="add-assignment-modal">
+        <h3>Add New Assignment</h3>
+        <form id="assignment-form">
+            <div class="form-group">
+                <label for="assignment-title">Assignment Title:</label>
+                <input type="text" id="assignment-title" required>
+            </div>
+            <div class="form-group">
+                <label for="assignment-course">Course/Subject:</label>
+                <input type="text" id="assignment-course" required>
+            </div>
+            <div class="form-group">
+                <label for="assignment-description">Description:</label>
+                <textarea id="assignment-description" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="assignment-due-date">Due Date:</label>
+                <input type="date" id="assignment-due-date" required>
+            </div>
+            <div class="form-group">
+                <label for="assignment-due-time">Due Time:</label>
+                <input type="time" id="assignment-due-time" value="23:59">
+            </div>
+            <div class="form-group">
+                <label for="assignment-priority">Priority:</label>
+                <select id="assignment-priority">
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <button type="submit">Add Assignment</button>
+            <button type="button" id="cancel-assignment-btn" style="background: #666; margin-left: 10px;">Cancel</button>
+        </form>
+    </section>
 
     <!-- Notification Permission Request -->
     <div id="notification-prompt" class="notification-prompt" style="display: none;">
