@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>evermind : evermind.shxrk.dev</title>
+    <meta name="description" content="a simple, easy-to-use, reminder app designed for students">
+    <meta name="theme-color" content="#667eea">
+    <link rel="stylesheet" href="../public/css/styles.css">
+    <link rel="manifest" href="../manifest.json">
+    <!-- Apple-specific meta tags for better iOS support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="evermind">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="project-info">
+                <h1>evermind</h1>
+                <p>a simple, easy-to-use, reminder app designed for students</p>
+            </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <button class="add-btn" id="add-assignment-btn">+ add reminder</button>
+                    <a href="/auth/google" class="login-btn" id="login-btn">login</a>
+                </div>
+    <script>
+    // Dynamically update login button with user display name if logged in
+    fetch('/api/user')
+        .then(r => r.json())
+        .then(user => {
+            const btn = document.getElementById('login-btn');
+            if (btn) {
+                if (user && user.name) {
+                    btn.textContent = user.name;
+                    btn.href = '/account';
+                } else {
+                    btn.textContent = 'login';
+                    btn.href = '/auth/google';
+                }
+            }
+        });
+    </script>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <main>
+            <!-- Today's Overview -->
+            <section class="today-overview">
+                <h2>Today - <span id="current-date"></span></h2>
+                <div id="today-assignments" class="assignment-list">
+                    <!-- Today's assignments will be displayed here -->
+                </div>
+            </section>
+
+            <!-- All Reminders -->
+            <section class="all-assignments">
+                <h3>all assignments</h3>
+                <div class="assignment-filters">
+                    <button class="filter-btn active" data-filter="all">all</button>
+                    <button class="filter-btn" data-filter="pending">pending</button>
+                    <button class="filter-btn" data-filter="completed">completed</button>
+                    <button class="filter-btn" data-filter="overdue">overdue</button>
+                </div>
+                <div id="all-assignments-list" class="assignment-list">
+                    <!-- All assignments will be displayed here -->
+                </div>
+            </section>
+
+            <!-- Weekly Calendar View -->
+            <section class="week-view">
+                <div class="week-header">
+                    <h3>weekly view</h3>
+                    <div class="week-navigation">
+                        <button class="week-nav-btn" id="prev-week">‹</button>
+                        <span id="current-week-range"></span>
+                        <button class="week-nav-btn" id="next-week">›</button>
+                    </div>
+                </div>
+                <div class="week-calendar" id="week-calendar">
+                    <!-- Week days will be dynamically generated here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Adding Assignment -->
+    <section class="add-assignment" id="add-assignment-modal">
+        <h3>add new assignment</h3>
+        <form id="assignment-form">
+            <div class="form-group">
+                <label for="assignment-title">assignment title:</label>
+                <input type="text" id="assignment-title" required>
+            </div>
+            <div class="form-group">
+                <label for="assignment-course">course/subject:</label>
+                <input type="text" id="assignment-course" required>
+            </div>
+            <div class="form-group">
+                <label for="assignment-description">description:</label>
+                <textarea id="assignment-description" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="assignment-due-date">due date:</label>
+                <input type="date" id="assignment-due-date" required>
+            </div>
+            <div class="form-group">
+                <label for="assignment-due-time">due time:</label>
+                <input type="time" id="assignment-due-time" value="23:59">
+            </div>
+            <div class="form-group">
+                <label for="assignment-priority">priority:</label>
+                <select id="assignment-priority">
+                    <option value="low">low</option>
+                    <option value="medium" selected>medium</option>
+                    <option value="high">high</option>
+                </select>
+            </div>
+            <button type="submit">add assignment</button>
+            <button type="button" id="cancel-assignment-btn" style="background: #666; margin-left: 10px;">Cancel</button>
+        </form>
+    </section>
+
+    <!-- Notification Permission Request -->
+    <div id="notification-prompt" class="notification-prompt" style="display: none;">
+        <div class="prompt-content">
+            <h3>enable notifications?</h3>
+            <p>allow evermind to send you reminder notifications for upcoming assignments.</p>
+            <div class="prompt-buttons">
+                <button id="enable-notifications">enable</button>
+                <button id="disable-notifications">no thanks</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

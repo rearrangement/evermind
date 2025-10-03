@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>account : evermind : evermind.shxrk.dev</title>
+    <link rel="stylesheet" href="../public/css/styles.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="project-info">
+                <h1>evermind</h1>
+                <p>a simple, easy-to-use, reminder app designed for students</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <a href="/" class="add-btn">home</a>
+                <button class="login-btn" id="account-action-btn">...</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <main>
+            <section class="account-info">
+                <h2>your account</h2>
+                <div id="account-details">
+                    <!-- Account details will be loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+    // Fetch and display user info, and set button dynamically
+    fetch('/api/user')
+      .then(r => r.json())
+      .then(user => {
+        const btn = document.getElementById('account-action-btn');
+        if(user && !user.error) {
+          document.getElementById('account-details').innerHTML = `
+            <p><strong>name:</strong> ${user.name}</p>
+            <p><strong>email:</strong> ${user.email}</p>
+            <img src="${user.avatar || ''}" alt="avatar" style="max-width:100px;max-height:100px;border-radius:50%;margin-top:10px;">
+          `;
+          btn.textContent = 'logout';
+          btn.onclick = function() { window.location = '/logout'; };
+        } else {
+          document.getElementById('account-details').innerHTML = '<p>you aren\'t logged in.</p>';
+          btn.textContent = 'login';
+          btn.onclick = function() { window.location = '/auth/google'; };
+        }
+      });
+    </script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+    "name": "evermind",
+    "short_name": "evermind",
+    "description": "a simple, easy-to-use, reminder app designed for students",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f5f7fa",
+    "theme_color": "#667eea",
+    "orientation": "portrait-primary",
+    "categories": ["education", "productivity", "utilities"],
+    "lang": "en",
+    "dir": "ltr"
+}
